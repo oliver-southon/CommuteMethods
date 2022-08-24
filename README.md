@@ -1,6 +1,5 @@
 # README
 
-<em>To prevent plagiarism, I have excluded the code in this repo. </em>
+The dataset used can be found in the CSV file. The data was sourced freely by Google Maps. 
 
-The dataset used can be found in the CSV file.
- 
+![](https://github.com/oliver-southon/CommuteMethods/blob/master/output.gif)
