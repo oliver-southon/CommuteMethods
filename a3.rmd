@@ -1,0 +1,75 @@
+---
+title: "Assignment 3"
+subtitle: "What Methods of Transport Have I Used Since Moving to Melbourne?"
+author: "Oliver Southon (s3888673)"
+output: html_document
+urlcolor: blue
+---
+
+###  {.tabset}
+
+
+#### Code
+
+```{r}
+
+library(ggplot2)
+library(dplyr)
+library(gganimate)
+library(gifski)
+
+```
+
+```{r}
+
+df <- read.csv("Transport_over_time.csv")
+df$Type <- as.factor(df$Type)
+df$Time <- as.POSIXct(df$Time, format = "%Y-%m-%d %H:%M:%OS")
+
+p <- ggplot(df, aes(x=Time)) +
+     geom_line(aes(y=total_car, color="total_car")) + 
+     geom_line(aes(y=total_walking, color="total_walking")) + 
+     geom_line(aes(y=total_train, color="total_train")) + 
+     geom_line(aes(y=total_tram, color="total_tram")) + 
+     geom_line(aes(y=total_bus, color="total_bus")) +
+     labs(y="Count of Transportation Method Usage", title="My Commutes Since I Moved To Melbourne") +
+     #theme(axis.title.y = element_text(size=10)) +
+     theme(plot.title = element_text(size=15))
+
+
+
+```
+
+```{r}
+
+p <- p + 
+     transition_reveal(Time) + 
+     geom_point(aes(y=total_car, color="total_car")) +
+     geom_point(aes(y=total_walking, color="total_walking")) +
+     geom_point(aes(y=total_train, color="total_train")) +
+     geom_point(aes(y=total_tram, color="total_tram")) +
+     geom_point(aes(y=total_bus, color="total_bus")) 
+
+```
+
+#### VISUALISATION
+```{r, include=FALSE}
+animate(p, renderer = gifski_renderer())
+
+anim_save("output.gif", p)
+```
+
+```{r, fig.align="center", echo = FALSE}
+knitr::include_graphics(("output.gif"))
+```
+
+#### Sources
+
+  - Google Maps, 2022.  [online] Sourced through "Your data in Maps" [Accessed 30th May 2022].
+
+The data was originally sourced through my own Google account, under the "Your data in Maps" feature which is available to all users who have allowed certain permissions. I have extracted the original json files into a clean CSV that was used for this visualisation. For privacy reasons, it also does not include any location data.
+
+The dataset used for this visualization is open and accessible at:
+https://github.com/oliver-southon/CommuteMethods
+
+It will be in the file named "Transportation_over_time.csv". 

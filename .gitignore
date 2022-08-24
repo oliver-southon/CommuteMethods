@@ -1,4 +1,5 @@
-rsconnect
-.Rhistory
-a3.html
-a3.rmd
+*
+!a3.rmd
+!a3.html
+!output.gif
+!Transport_over_time.csv
